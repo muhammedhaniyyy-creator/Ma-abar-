@@ -143,7 +143,7 @@ const DEFAULT_PRODUCTS = [
     cat: "books",
     price: 75,
     desc: "A practical long notebook for daily college work.",
-    img: "assets/images/college notebook.webp",
+    img: "assets/images/Long Notebook.webp",
     rating: 4.8
   },
   {
