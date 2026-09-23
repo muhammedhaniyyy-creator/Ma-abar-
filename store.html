@@ -1,1 +1,522 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Shop All — Kiswa Union</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><header class="site-header"><a class="brand" href="index.html"><img src="assets/logo.png" alt="Kiswa Union"></a><nav class="nav-links" id="storeNav"><a href="index.html">Home</a><a href="index.html#categories">Categories</a><a href="store.html">Shop All</a><a href="index.html#about">About</a></nav><div class="header-actions"><button class="icon-btn" id="storeSearch">⌕</button><button class="icon-btn cart-btn" id="storeCart">🛒 <span id="storeCartCount">0</span></button><button class="menu-toggle" id="storeMenu">☰</button></div></header><main style="padding-top:120px"><section class="section" style="padding-top:45px"><span class="kicker">KISWA UNION · SHOP</span><div class="section-head"><div><h2>Everything in the store.</h2><p style="max-width:620px;color:var(--muted);line-height:1.7">Browse stationery, books, drinks, snacks, sweets and everyday student essentials. Add what you need and continue to checkout.</p></div></div><div class="menu-toolbar"><div class="category-tabs" id="storeTabs"><button class="active" data-cat="all">All</button><button data-cat="stationery">Stationery</button><button data-cat="books">Books</button><button data-cat="tea">Tea & Drinks</button><button data-cat="snacks">Snacks</button><button data-cat="sweet">Sweets</button><button data-cat="other">Other</button></div><input id="storeSearchInput" style="max-width:260px;padding:11px 15px;border:1px solid var(--line);border-radius:999px;background:#fff;outline:none" placeholder="Search products..."></div><div class="menu-grid" id="storeGrid"></div></section></main><footer class="footer"><div class="footer-brand"><img src="assets/logo.png" alt="Kiswa Union"><p>Stationery, books, tea, snacks and more — made for student life.</p></div><div class="footer-links"><a href="index.html">Home</a><a href="index.html#categories">Categories</a></div></footer><script>const products=JSON.parse(localStorage.getItem('kiswaUnionProducts')||'null')||[{"id": 1, "name": "Blue Ball Pen", "cat": "stationery", "price": 10, "desc": "Smooth everyday writing pen for class notes and assignments.", "img": "assets/images/kiswa-hero.png"}, {"id": 2, "name": "Black Ball Pen", "cat": "stationery", "price": 10, "desc": "Reliable black ink for exams, forms and everyday writing.", "img": "assets/images/kiswa-hero.png"}, {"id": 3, "name": "HB Pencil", "cat": "stationery", "price": 8, "desc": "Classic HB pencil for writing, drawing and diagrams.", "img": "assets/images/kiswa-hero.png"}, {"id": 4, "name": "A4 Notebook", "cat": "books", "price": 60, "desc": "Clean ruled pages for class notes and study plans.", "img": "assets/images/kiswa-hero.png"}, {"id": 5, "name": "Long Notebook", "cat": "books", "price": 75, "desc": "A practical long notebook for daily college work.", "img": "assets/images/kiswa-hero.png"}, {"id": 6, "name": "Assignment File", "cat": "stationery", "price": 35, "desc": "Keep assignments and important papers organised.", "img": "assets/images/kiswa-hero.png"}, {"id": 7, "name": "Highlighter", "cat": "stationery", "price": 25, "desc": "Bright highlighting for revision and quick study.", "img": "assets/images/kiswa-hero.png"}, {"id": 8, "name": "Black Marker", "cat": "stationery", "price": 30, "desc": "Bold marker for posters, labels and project work.", "img": "assets/images/kiswa-hero.png"}, {"id": 9, "name": "Drawing Book", "cat": "books", "price": 45, "desc": "A handy sketch and drawing book for creative work.", "img": "assets/images/kiswa-hero.png"}, {"id": 10, "name": "Exam Pad", "cat": "stationery", "price": 55, "desc": "Study and exam essential with a sturdy writing surface.", "img": "assets/images/kiswa-hero.png"}, {"id": 11, "name": "Black Tea", "cat": "tea", "price": 18, "desc": "A hot cup for a quick break between classes.", "img": "assets/images/kiswa-hero.png"}, {"id": 12, "name": "Milk Tea", "cat": "tea", "price": 22, "desc": "Creamy hot tea for your campus break.", "img": "assets/images/kiswa-hero.png"}, {"id": 13, "name": "Samosa", "cat": "snacks", "price": 15, "desc": "Crispy savoury snack for a quick bite.", "img": "assets/images/kiswa-hero.png"}, {"id": 14, "name": "Banana Fritter", "cat": "snacks", "price": 20, "desc": "Classic Kerala-style snack for tea time.", "img": "assets/images/kiswa-hero.png"}, {"id": 15, "name": "Laddu", "cat": "sweet", "price": 20, "desc": "A small sweet treat for your break.", "img": "assets/images/kiswa-hero.png"}, {"id": 16, "name": "Student Essentials Pack", "cat": "other", "price": 120, "desc": "A handy mix of everyday stationery essentials.", "img": "assets/images/kiswa-hero.png"}];let cat=new URLSearchParams(location.search).get('cat')||'all';const grid=document.querySelector('#storeGrid');function money(n){return '₹'+Number(n).toLocaleString('en-IN')}function render(){const q=(document.querySelector('#storeSearchInput').value||'').toLowerCase();let list=products.filter(p=>(cat==='all'||p.cat===cat)&&(`${p.name} ${p.desc}`).toLowerCase().includes(q));grid.innerHTML=list.map(p=>`<article class="menu-card"><div class="card-img"><img src="${p.img}" alt="${p.name}"></div><div class="card-body"><div class="card-top"><h3>${p.name}</h3><span class="price">${money(p.price)}</span></div><p>${p.desc}</p><div class="card-actions"><button class="add-btn" data-add="${p.id}">Add to cart</button></div></div></article>`).join('')||'<div class="empty-state">No products found.</div>'}grid.addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;const p=products.find(x=>x.id==b.dataset.add);let cart=JSON.parse(localStorage.getItem('kiswaUnionCart')||'[]');const i=cart.find(x=>x.id===p.id);if(i)i.qty++;else cart.push({...p,qty:1});localStorage.setItem('kiswaUnionCart',JSON.stringify(cart));updateCount();b.textContent='Added ✓';setTimeout(()=>b.textContent='Add to cart',900)});function updateCount(){const c=JSON.parse(localStorage.getItem('kiswaUnionCart')||'[]').reduce((s,i)=>s+i.qty,0);document.querySelector('#storeCartCount').textContent=c}document.querySelector('#storeSearchInput').addEventListener('input',render);document.querySelector('#storeTabs').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;cat=b.dataset.cat;document.querySelectorAll('#storeTabs button').forEach(x=>x.classList.toggle('active',x===b));render()});document.querySelector('#storeCart').onclick=()=>location.href='index.html#cart';document.querySelector('#storeMenu').onclick=()=>document.querySelector('#storeNav').classList.toggle('show');window.addEventListener('scroll',()=>document.querySelector('.site-header').classList.toggle('scrolled',scrollY>50));updateCount();render();</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" href="assets/images/kiswa on.png">
+
+  <title>Shop All — Kiswa Union</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <a class="brand" href="index.html" aria-label="Kiswa Union">
+    <img src="assets/images/logo.webp" alt="Kiswa Union">
+  </a>
+
+  <nav class="nav-links" id="storeNav">
+    <a href="index.html">Home</a>
+    <a href="index.html#categories">Categories</a>
+    <a href="store.html">Shop All</a>
+    <a href="index.html#about">About</a>
+  </nav>
+
+  <div class="header-actions">
+    <button class="icon-btn" id="storeSearch">⌕</button>
+
+    <button class="icon-btn cart-btn" id="storeCart">
+      🛒
+      <span id="storeCartCount">0</span>
+    </button>
+
+    <button class="menu-toggle" id="storeMenu">☰</button>
+  </div>
+
+</header>
+
+
+<main style="padding-top:120px">
+
+  <section class="section" style="padding-top:45px">
+
+    <span class="kicker">KISWA UNION · SHOP</span>
+
+    <div class="section-head">
+      <div>
+        <h2>Everything in the store.</h2>
+
+        <p style="max-width:620px;color:var(--muted);line-height:1.7">
+          Browse stationery, books, drinks, snacks, sweets and everyday student essentials.
+          Add what you need and continue to checkout.
+        </p>
+      </div>
+    </div>
+
+
+    <div class="menu-toolbar">
+
+      <div class="category-tabs" id="storeTabs">
+        <button class="active" data-cat="all">All</button>
+        <button data-cat="stationery">Stationery</button>
+        <button data-cat="books">Books</button>
+        <button data-cat="tea">Tea & Drinks</button>
+        <button data-cat="snacks">Snacks</button>
+        <button data-cat="sweet">Sweets</button>
+        <button data-cat="other">Other</button>
+      </div>
+
+      <input
+        id="storeSearchInput"
+        style="max-width:260px;padding:11px 15px;border:1px solid var(--line);border-radius:999px;background:#fff;outline:none"
+        placeholder="Search products..."
+      >
+
+    </div>
+
+
+    <div class="menu-grid" id="storeGrid"></div>
+
+  </section>
+
+</main>
+
+
+<footer class="footer">
+
+  <div class="footer-brand">
+
+    <img src="assets/images/logo.webp" alt="Kiswa Union">
+
+    <p>
+      Stationery, books, tea, snacks and more — made for student life.
+    </p>
+
+  </div>
+
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#categories">Categories</a>
+  </div>
+
+</footer>
+
+
+<script>
+
+const DEFAULT_PRODUCTS = [
+
+  {
+    id: 1,
+    name: "Blue Ball Pen",
+    cat: "stationery",
+    price: 10,
+    desc: "Smooth everyday writing pen for class notes and assignments.",
+    img: "assets/images/Blue Ball Pen.webp"
+  },
+
+  {
+    id: 2,
+    name: "Black Ball Pen",
+    cat: "stationery",
+    price: 10,
+    desc: "Reliable black ink for exams, forms and everyday writing.",
+    img: "assets/images/Black Ball Pen.webp"
+  },
+
+  {
+    id: 3,
+    name: "HB Pencil",
+    cat: "stationery",
+    price: 8,
+    desc: "Classic HB pencil for writing, drawing and diagrams.",
+    img: "assets/images/HB Pencil.webp"
+  },
+
+  {
+    id: 4,
+    name: "A4 Notebook",
+    cat: "books",
+    price: 60,
+    desc: "Clean ruled pages for class notes and study plans.",
+    img: "assets/images/A4 Notebook.webp"
+  },
+
+  {
+    id: 5,
+    name: "Long Notebook",
+    cat: "books",
+    price: 75,
+    desc: "A practical long notebook for daily college work.",
+    img: "assets/images/Long Notebook.webp"
+  },
+
+  {
+    id: 6,
+    name: "Assignment File",
+    cat: "stationery",
+    price: 35,
+    desc: "Keep assignments and important papers organised.",
+    img: "assets/images/Assignment File.webp"
+  },
+
+  {
+    id: 7,
+    name: "Highlighter",
+    cat: "stationery",
+    price: 25,
+    desc: "Bright highlighting for revision and quick study.",
+    img: "assets/images/Highlighter.webp"
+  },
+
+  {
+    id: 8,
+    name: "Black Marker",
+    cat: "stationery",
+    price: 30,
+    desc: "Bold marker for posters, labels and project work.",
+    img: "assets/images/Black Marker.webp"
+  },
+
+  {
+    id: 9,
+    name: "Drawing Book",
+    cat: "books",
+    price: 45,
+    desc: "A handy sketch and drawing book for creative work.",
+    img: "assets/images/Drawing Book.webp"
+  },
+
+  {
+    id: 10,
+    name: "Exam Pad",
+    cat: "stationery",
+    price: 55,
+    desc: "Study and exam essential with a sturdy writing surface.",
+    img: "assets/images/Exam Pad.webp"
+  },
+
+  {
+    id: 11,
+    name: "Black Tea",
+    cat: "tea",
+    price: 18,
+    desc: "A hot cup for a quick break between classes.",
+    img: "assets/images/Black Tea.webp"
+  },
+
+  {
+    id: 12,
+    name: "Milk Tea",
+    cat: "tea",
+    price: 22,
+    desc: "Creamy hot tea for your campus break.",
+    img: "assets/images/Milk Tea.webp"
+  },
+
+  {
+    id: 13,
+    name: "Samosa",
+    cat: "snacks",
+    price: 15,
+    desc: "Crispy savoury snack for a quick bite.",
+    img: "assets/images/Samosa.webp"
+  },
+
+  {
+    id: 14,
+    name: "Banana Fritter",
+    cat: "snacks",
+    price: 20,
+    desc: "Classic Kerala-style snack for tea time.",
+    img: "assets/images/Banana Fry.webp"
+  },
+
+  {
+    id: 15,
+    name: "Laddu",
+    cat: "sweet",
+    price: 20,
+    desc: "A small sweet treat for your break.",
+    img: "assets/images/Laddu.webp"
+  },
+
+  {
+    id: 16,
+    name: "Student Essentials Pack",
+    cat: "other",
+    price: 120,
+    desc: "A handy mix of everyday stationery essentials.",
+    img: "assets/images/Student Essentials Pack.webp"
+  }
+
+];
+
+
+// Load saved products if they exist.
+// If old saved products contain the previous hero image,
+// automatically replace them with the correct product images.
+
+const savedProducts =
+  JSON.parse(localStorage.getItem("kiswaUnionProducts") || "null");
+
+const products = savedProducts
+  ? DEFAULT_PRODUCTS.map(defaultProduct => {
+
+      const saved = savedProducts.find(
+        p => Number(p.id) === Number(defaultProduct.id)
+      );
+
+      if (!saved) return defaultProduct;
+
+      return {
+        ...defaultProduct,
+        ...saved,
+        img:
+          !saved.img ||
+          saved.img.includes("kiswa-hero") ||
+          saved.img.includes("kiswa-hero.png")
+            ? defaultProduct.img
+            : saved.img
+      };
+
+    })
+  : DEFAULT_PRODUCTS;
+
+
+let cat =
+  new URLSearchParams(location.search).get("cat") || "all";
+
+
+const grid =
+  document.querySelector("#storeGrid");
+
+
+function money(n) {
+  return "₹" + Number(n).toLocaleString("en-IN");
+}
+
+
+function render() {
+
+  const q =
+    (document.querySelector("#storeSearchInput").value || "")
+      .toLowerCase();
+
+  const list =
+    products.filter(p =>
+      (cat === "all" || p.cat === cat) &&
+      (`${p.name} ${p.desc}`)
+        .toLowerCase()
+        .includes(q)
+    );
+
+
+  grid.innerHTML =
+    list.map(p => `
+
+      <article class="menu-card">
+
+        <div class="card-img">
+
+          <img
+            src="${p.img}"
+            alt="${p.name}"
+          >
+
+        </div>
+
+
+        <div class="card-body">
+
+          <div class="card-top">
+
+            <h3>${p.name}</h3>
+
+            <span class="price">
+              ${money(p.price)}
+            </span>
+
+          </div>
+
+
+          <p>
+            ${p.desc}
+          </p>
+
+
+          <div class="card-actions">
+
+            <button
+              class="add-btn"
+              data-add="${p.id}"
+            >
+              Add to cart
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `).join("")
+
+
+    || '<div class="empty-state">No products found.</div>';
+
+}
+
+
+grid.addEventListener("click", e => {
+
+  const b =
+    e.target.closest("[data-add]");
+
+  if (!b) return;
+
+
+  const p =
+    products.find(
+      x => x.id == b.dataset.add
+    );
+
+  if (!p) return;
+
+
+  let cart =
+    JSON.parse(
+      localStorage.getItem("kiswaUnionCart") || "[]"
+    );
+
+
+  const i =
+    cart.find(x => x.id === p.id);
+
+
+  if (i) {
+
+    i.qty++;
+
+  } else {
+
+    cart.push({
+      ...p,
+      qty: 1
+    });
+
+  }
+
+
+  localStorage.setItem(
+    "kiswaUnionCart",
+    JSON.stringify(cart)
+  );
+
+
+  updateCount();
+
+
+  b.textContent = "Added ✓";
+
+
+  setTimeout(
+    () => b.textContent = "Add to cart",
+    900
+  );
+
+});
+
+
+function updateCount() {
+
+  const c =
+    JSON.parse(
+      localStorage.getItem("kiswaUnionCart") || "[]"
+    )
+    .reduce(
+      (s, i) => s + i.qty,
+      0
+    );
+
+
+  document.querySelector(
+    "#storeCartCount"
+  ).textContent = c;
+
+}
+
+
+document
+  .querySelector("#storeSearchInput")
+  .addEventListener(
+    "input",
+    render
+  );
+
+
+document
+  .querySelector("#storeTabs")
+  .addEventListener("click", e => {
+
+    const b =
+      e.target.closest("[data-cat]");
+
+    if (!b) return;
+
+
+    cat = b.dataset.cat;
+
+
+    document
+      .querySelectorAll("#storeTabs button")
+      .forEach(x =>
+        x.classList.toggle(
+          "active",
+          x === b
+        )
+      );
+
+
+    render();
+
+  });
+
+
+document.querySelector("#storeCart").onclick =
+  () => location.href = "index.html#cart";
+
+
+document.querySelector("#storeMenu").onclick =
+  () =>
+    document
+      .querySelector("#storeNav")
+      .classList.toggle("show");
+
+
+window.addEventListener("scroll", () =>
+  document
+    .querySelector(".site-header")
+    .classList.toggle(
+      "scrolled",
+      scrollY > 50
+    )
+);
+
+
+updateCount();
+render();
+
+</script>
+
+</body>
+</html>
