@@ -1,5 +1,5 @@
 // Kiswa Union — student-union store checkout.
-const WHATSAPP_NUMBER = "919999999999"; // Replace with the real Kiswa Union WhatsApp number.
+const WHATSAPP_NUMBER = "+91 80896 66764"; // Replace with the real Kiswa Union WhatsApp number.
 const UPI_ID = "kiswaunion@upi"; // Replace with the real UPI ID.
 const UPI_NAME = "Kiswa Union";
 // The Malli font is a legacy ASCII Malayalam font. Unicode Malayalam is
