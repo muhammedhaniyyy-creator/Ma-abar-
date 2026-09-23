@@ -385,3 +385,495 @@
     transform:rotate(3deg) translateY(0);
   }
 }
+
+/* =========================================================
+   KISWA UNION — MOBILE OVERFLOW FIX
+   ========================================================= */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+/* ---------- HEADER ---------- */
+
+@media (max-width: 700px) {
+
+  .site-header {
+    width: calc(100% - 24px) !important;
+    max-width: calc(100% - 24px) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+
+    top: 12px !important;
+    padding: 7px 9px !important;
+    gap: 6px !important;
+
+    border-radius: 999px;
+  }
+
+  .brand {
+    width: 105px !important;
+    flex: 0 0 105px !important;
+    order: 3;
+  }
+
+  .brand img {
+    width: 100% !important;
+    height: 48px !important;
+    object-fit: contain;
+  }
+
+  .nav-links {
+    display: none !important;
+  }
+
+  .nav-links.show {
+    display: flex !important;
+    position: absolute !important;
+    top: 64px !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    padding: 12px !important;
+    gap: 5px !important;
+
+    border-radius: 22px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+
+    flex-direction: column;
+  }
+
+  .header-actions {
+    display: flex !important;
+    align-items: center;
+    gap: 6px !important;
+    margin-left: auto !important;
+    order: 1;
+  }
+
+  .icon-btn,
+  .menu-toggle {
+    width: 43px !important;
+    height: 43px !important;
+    min-width: 43px !important;
+    flex: 0 0 43px !important;
+  }
+
+  .menu-toggle {
+    display: grid !important;
+  }
+
+  /* ---------- HERO ---------- */
+
+  .hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 760px !important;
+    height: 100svh !important;
+    max-height: none !important;
+    overflow: hidden !important;
+  }
+
+  .hero-image,
+  .hero-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .hero-image {
+    transform: none !important;
+    background-position: center center !important;
+  }
+
+  .hero-content {
+    position: absolute !important;
+    z-index: 3;
+
+    left: 22px !important;
+    right: 22px !important;
+    top: auto !important;
+    bottom: 75px !important;
+
+    width: auto !important;
+    max-width: none !important;
+
+    transform: none !important;
+  }
+
+  .hero-content .eyebrow {
+    font-size: 12px !important;
+    letter-spacing: 2px !important;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(48px, 14vw, 64px) !important;
+    line-height: .88 !important;
+    letter-spacing: -2px !important;
+
+    margin: 14px 0 20px !important;
+
+    max-width: 100% !important;
+    word-break: normal !important;
+  }
+
+  .hero-content p {
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+
+    max-width: 100% !important;
+    margin-bottom: 22px !important;
+  }
+
+  .hero-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 9px !important;
+
+    width: 100% !important;
+  }
+
+  .hero-actions .btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 52px !important;
+    padding: 13px 18px !important;
+  }
+
+  .hero-mini {
+    margin-top: 17px !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  .hero-card {
+    display: none !important;
+  }
+
+  /* ---------- SECTIONS ---------- */
+
+  .section,
+  .menu-section,
+  .story-section,
+  .offer-section,
+  .visit-section {
+    width: calc(100% - 28px) !important;
+    max-width: calc(100% - 28px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .section {
+    padding: 70px 0 !important;
+  }
+
+  .section-head {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .section-head h2,
+  .story-copy h2,
+  .visit-card h2,
+  .offer-card h2 {
+    font-size: clamp(38px, 11vw, 54px) !important;
+    line-height: .95 !important;
+  }
+
+  /* ---------- TRUST STRIP ---------- */
+
+  .trust-strip,
+  .feature-strip {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    grid-template-columns: 1fr 1fr !important;
+
+    padding: 20px 16px !important;
+    gap: 12px !important;
+  }
+
+  /* ---------- CATEGORY ---------- */
+
+  .category-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .category-card {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  /* ---------- PRODUCT FILTER ---------- */
+
+  .menu-toolbar {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .category-tabs {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+
+    display: flex !important;
+    flex-wrap: nowrap !important;
+
+    padding-bottom: 7px !important;
+
+    scrollbar-width: none;
+  }
+
+  .category-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-tabs button {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+
+  .filter-fav {
+    align-self: flex-start !important;
+  }
+
+  /* ---------- PRODUCT GRID ---------- */
+
+  .menu-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .menu-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .card-img {
+    height: 220px !important;
+  }
+
+  .card-body {
+    padding: 18px !important;
+  }
+
+  .card-body h3 {
+    font-size: 22px !important;
+  }
+
+  .card-body p {
+    font-size: 14px !important;
+  }
+
+  /* ---------- STORY ---------- */
+
+  .story-section {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .story-image {
+    width: 100% !important;
+    min-height: 320px !important;
+    max-height: 380px !important;
+  }
+
+  .story-copy p {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+
+  .story-points strong {
+    font-size: 16px !important;
+  }
+
+  /* ---------- OFFER ---------- */
+
+  .offer-section {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .offer-card {
+    padding: 28px !important;
+  }
+
+  .offer-art {
+    min-height: 280px !important;
+    width: 100% !important;
+  }
+
+  .offer-art img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* ---------- VISIT ---------- */
+
+  .visit-card {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+    padding: 26px !important;
+  }
+
+  .steps {
+    width: 100% !important;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  .footer {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    padding: 45px 22px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .footer-brand,
+  .footer-links {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .footer-links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+
+  /* ---------- DRAWERS ---------- */
+
+  .drawer {
+    width: min(100%, 420px) !important;
+    max-width: 100% !important;
+  }
+
+  .search-drawer,
+  .cart-drawer {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* ---------- MODALS ---------- */
+
+  .modal-wrap {
+    padding: 12px !important;
+  }
+
+  .modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 90svh !important;
+
+    padding: 24px 18px !important;
+    border-radius: 24px !important;
+  }
+
+  /* ---------- FORMS ---------- */
+
+  input,
+  select,
+  textarea {
+    max-width: 100% !important;
+  }
+
+  /* ---------- GENERAL ---------- */
+
+  table {
+    max-width: 100% !important;
+  }
+
+  .toast {
+    width: calc(100% - 30px) !important;
+    max-width: 420px !important;
+    text-align: center !important;
+  }
+}
+
+
+/* Extra-small phones */
+
+@media (max-width: 390px) {
+
+  .site-header {
+    width: calc(100% - 16px) !important;
+    max-width: calc(100% - 16px) !important;
+  }
+
+  .brand {
+    width: 92px !important;
+    flex-basis: 92px !important;
+  }
+
+  .brand img {
+    height: 43px !important;
+  }
+
+  .icon-btn,
+  .menu-toggle {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    flex-basis: 40px !important;
+  }
+
+  .hero-content {
+    left: 18px !important;
+    right: 18px !important;
+  }
+
+  .hero-content h1 {
+    font-size: 46px !important;
+  }
+
+  .hero-content p {
+    font-size: 15px !important;
+  }
+}
